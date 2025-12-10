@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  
+
+}
+
+model User {
+  id_user       Int     @id @default(autoincrement())
+  username      String  @db.VarChar(15) @unique
+  name          String  @db.VarChar(20)
+  email         String  @db.VarChar(50)
+  notlp         String  @db.VarChar(20)
+  tipe_user     String  @db.VarChar(10)
+  password_hash String  @db.VarChar(255)
+  token         String? @db.VarChar(100)
+
+  reports       Report[]
+
+  @@map("users")
+}
+
+model Report {
+  id_laporan    String         @id @db.VarChar(10)
+  id_user       Int            @db.Int
+  judul         String         @db.VarChar(150)
+  bukti         String         @db.VarChar(255)
+  lokasi        String         @db.VarChar(255)
+  kategori      String         @db.VarChar(50)
+  deskripsi     String         @db.Text
+  surat         String?        @db.VarChar(255)
+  usaha         String         @db.Text
+  tanggal       DateTime       @db.Timestamp()
+
+  statusReports StatusReport[]
+  photos        Photos[]
+
+  user          User           @relation(fields: [id_user], references: [id_user])
+
+  @@map("reports")
+}
+
+model StatusReport {
+  id_status     Int            @id @default(autoincrement())
+  id_laporan    String         @db.VarChar(10)
+  status        String         @db.VarChar(50)
+  keterangan    String?        @db.Text
+  tanggal       DateTime       @db.Timestamp()
+
+  photos        Photos[]
+
+  report        Report         @relation(fields: [id_laporan], references: [id_laporan])
+
+  @@map("status_reports")
+}
+
+model News {
+  id_berita     Int            @id @default(autoincrement())
+  judul_berita  String         @db.VarChar(125)
+  deskripsi     String         @db.Text
+  ringkas       String         @db.VarChar(255)
+  tanggal       DateTime       @db.DateTime()
+
+  photos        Photos[]
+
+  @@map("news")
+}
+
+model Photos {
+  id_foto     Int            @id @default(autoincrement())
+  id_laporan  String?        @db.VarChar(10)
+  id_status   Int?           @db.Int     
+  id_berita   Int?           @db.Int 
+  nama        String         @db.VarChar(125)
+  url         String         @db.VarChar(255)
+
+  report       Report?        @relation(fields: [id_laporan], references: [id_laporan])
+  statusReport StatusReport?  @relation(fields: [id_status], references: [id_status])
+  news         News?          @relation(fields: [id_berita], references: [id_berita])
+
+  @@map("photos")
+}
