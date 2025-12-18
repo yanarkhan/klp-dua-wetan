@@ -1,15 +1,15 @@
+import { HeroSection } from "@/features/landing/components/HeroSection";
+import { StatsSection } from "@/features/landing/components/StatsSection";
+
 export default function HomePage() {
   return (
-    <main className="container mx-auto px-4 pt-32">
-      <section className="mx-auto max-w-3xl text-center">
-        <h1 className="mb-4 text-3xl font-semibold">
-          Portal Layanan Publik Kelurahan
-        </h1>
+    <main className="min-h-screen bg-neutral-50 flex flex-col pb-20">
+      <HeroSection />
+      <StatsSection />
 
-        <p className="text-muted-foreground">
-          Website resmi Kelurahan Klp. Dua Wetan. Silakan gunakan menu navigasi
-          di atas untuk mengakses layanan yang tersedia.
-        </p>
+      <section className="container mx-auto px-4 mt-16 text-center">
+        <h2 className="text-2xl font-bold text-foreground">Berita Terkini</h2>
+        <p className="text-muted-foreground mt-2">Abis ini berita boy...</p>
       </section>
     </main>
   );
