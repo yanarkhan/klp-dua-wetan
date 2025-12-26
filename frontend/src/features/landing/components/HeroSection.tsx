@@ -12,7 +12,7 @@ export function HeroSection() {
       {/* Background Image + Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/hero-section.png"
+          src="/images/hero/hero-section.png"
           alt="Kantor Kelurahan Kelapa Dua Wetan"
           fill
           className="object-cover"
